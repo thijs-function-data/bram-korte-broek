@@ -33,7 +33,7 @@ const translations = {
     no: "NEE.",
     almost: "BIJNA.",
     currentMetric: "Huidige metriek",
-    sliderLabel: "Handmatige Shifter",
+    sliderLabel: "Handmatige Klimaatverandering",
     warmText: "Optimale omstandigheden bereikt. Thermische blootstelling voor onderste ledematen geadviseerd.",
     almostText: "Grensgevallen bereikt. Bram twijfelt nog een beetje.",
     coldText: "Thermische drempel niet bereikt. Lange bedekking aanbevolen.",
@@ -152,7 +152,7 @@ export default function Home() {
           </div>
         ) : (
           <div className="w-full max-w-5xl flex flex-col items-center space-y-12 md:space-y-20 animate-in fade-in duration-1000">
-            <h1 className="text-sm font-mono tracking-[0.4em] uppercase opacity-40">
+            <h1 className="text-lg font-mono tracking-[0.4em] uppercase opacity-40">
               {t.mainTitle}
             </h1>
 
@@ -190,16 +190,16 @@ export default function Home() {
         )}
       </main>
 
-      {/* Manual Shifter moved to a less prominent fixed position */}
-      <div className="fixed bottom-6 right-6 flex flex-col items-end gap-2 opacity-30 hover:opacity-100 transition-opacity z-50 group">
-          <div className="text-[10px] font-mono uppercase tracking-[0.2em] opacity-40 group-hover:opacity-100 transition-opacity">{t.sliderLabel}</div>
+      {/* Manual Shifter moved to a more prominent fixed position */}
+      <div className="fixed bottom-6 right-6 flex flex-col items-end gap-2 opacity-60 hover:opacity-100 transition-opacity z-50 group">
+          <div className="text-[10px] font-mono uppercase tracking-[0.2em] opacity-80 group-hover:opacity-100 transition-opacity">{t.sliderLabel}</div>
           <input 
               type="range" 
               min="-10" 
               max="40" 
               value={temperature} 
               onChange={(e) => setTemperature(Number(e.target.value))}
-              className={`w-32 cursor-ew-resize accent-current ${status === 'yes' ? 'bg-black/20' : 'bg-white/20'}`}
+              className={`w-full cursor-ew-resize accent-current ${status === 'yes' ? 'bg-black/40' : 'bg-white/40'}`}
           />
       </div>
 
