@@ -122,6 +122,22 @@ const BramSVG: React.FC<BramSVGProps> = ({ status, mousePos }) => {
           <path d="M135 290 L 135 360" stroke="black" strokeWidth="4" strokeLinecap="round" />
           <path d="M165 290 L 165 360" stroke="black" strokeWidth="4" strokeLinecap="round" />
           <path d="M185 290 L 185 360" stroke="black" strokeWidth="4" strokeLinecap="round" />
+
+          {/* Censorship sign */}
+          <g className="animate-bounce">
+            <rect x="100" y="220" width="100" height="40" fill="white" stroke="black" strokeWidth="2" rx="4" />
+            <text 
+              x="150" 
+              y="245" 
+              fontFamily="monospace" 
+              fontSize="8" 
+              textAnchor="middle" 
+              fill="black"
+              className="font-bold"
+            >
+              FOR PUCKS EYES ONLY
+            </text>
+          </g>
         </>
       ) : status === 'yes' ? (
         <>

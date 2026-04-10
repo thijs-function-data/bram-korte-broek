@@ -14,6 +14,7 @@ const translations = {
     yes: "YES.",
     no: "NO.",
     almost: "ALMOST.",
+    naked: "BRAM GOES NAKED.",
     currentMetric: "Current metric",
     sliderLabel: "Manual Climate Change",
     warmText: "Optimal conditions met. Thermal exposure advised for lower extremities.",
@@ -32,6 +33,7 @@ const translations = {
     yes: "JA.",
     no: "NEE.",
     almost: "BIJNA.",
+    naked: "BRAM GAAT NAAKT.",
     currentMetric: "Huidige metriek",
     sliderLabel: "Handmatige Klimaatverandering",
     warmText: "Optimale omstandigheden bereikt. Thermische blootstelling voor onderste ledematen geadviseerd.",
@@ -161,10 +163,10 @@ export default function Home() {
             <div className="relative group">
               <div 
                 className={`text-[clamp(6rem,20vw,16rem)] font-black leading-none tracking-tighter transition-all duration-1000 ${
-                  status === 'yes' ? 'text-black opacity-100' : status === 'almost' ? 'text-white/50' : 'text-white/10'
+                  status === 'naked' ? 'text-black opacity-100' : status === 'yes' ? 'text-black opacity-100' : status === 'almost' ? 'text-white/50' : 'text-white/10'
                 } drop-shadow-[0_10px_30px_rgba(0,0,0,0.1)]`}
               >
-                {status === 'yes' ? t.yes : status === 'almost' ? t.almost : t.no}
+                {status === 'naked' ? t.naked : status === 'yes' ? t.yes : status === 'almost' ? t.almost : t.no}
               </div>
             </div>
 
