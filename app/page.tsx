@@ -200,7 +200,7 @@ export default function Home() {
       </main>
 
       {/* Manual Shifter moved to a more prominent fixed position */}
-      <div className="fixed bottom-6 right-6 flex flex-col items-end gap-2 opacity-60 hover:opacity-100 transition-opacity z-50 group">
+      <div className="fixed bottom-6 right-6 left-6 md:left-auto md:w-48 flex flex-col items-end gap-2 opacity-60 hover:opacity-100 transition-opacity z-[100] group touch-none">
           <div className="text-[10px] font-mono uppercase tracking-[0.2em] opacity-80 group-hover:opacity-100 transition-opacity">{t.sliderLabel}</div>
           <input 
               type="range" 
@@ -212,7 +212,7 @@ export default function Home() {
           />
       </div>
 
-      <footer className="relative z-10 p-8 flex justify-between items-end">
+      <footer className="relative z-10 p-8 hidden md:flex justify-between items-end">
         <div className="text-[10px] font-mono uppercase tracking-widest opacity-20">{t.footer1}</div>
         <div className="text-[10px] font-mono uppercase tracking-widest opacity-20">{t.footer2}</div>
       </footer>
