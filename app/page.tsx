@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import BramSVG from './components/BramSVG';
 
 const translations = {
@@ -51,6 +51,7 @@ export default function Home() {
   const [locationDenied, setLocationDenied] = useState<boolean>(false);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [lang, setLang] = useState<'en' | 'nl'>('nl');
+  const fetchAttempted = useRef(false);
 
   useEffect(() => {
     // Detect browser language
@@ -74,6 +75,9 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
+    if (fetchAttempted.current) return;
+    fetchAttempted.current = true;
+
     if (!navigator.geolocation) {
       setError(lang === 'en' ? 'Geolocation is not supported.' : 'Geolocatie niet ondersteund.');
       setLoading(false);
@@ -93,7 +97,7 @@ export default function Home() {
           } else {
             setError(lang === 'en' ? 'Could not fetch weather.' : 'Kon weer niet ophalen.');
           }
-        } catch (err) {
+        } catch {
           setError(lang === 'en' ? 'Failed to fetch weather.' : 'Weer ophalen mislukt.');
         } finally {
           setLoading(false);
@@ -106,7 +110,8 @@ export default function Home() {
           setError(lang === 'en' ? 'Could not retrieve location.' : 'Kon locatie niet ophalen.');
         }
         setLoading(false);
-      }
+      },
+      { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
     );
   }, [lang]);
 
