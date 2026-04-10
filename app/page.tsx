@@ -15,7 +15,7 @@ const translations = {
     no: "NO.",
     almost: "ALMOST.",
     currentMetric: "Current metric",
-    sliderLabel: "Manual Shifter",
+    sliderLabel: "Manual Climate Change",
     warmText: "Optimal conditions met. Thermal exposure advised for lower extremities.",
     almostText: "Borderline conditions. Bram is considering his options.",
     coldText: "Thermal threshold not achieved. Long-form covering recommended.",
