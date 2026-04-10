@@ -3,9 +3,10 @@ import React from 'react';
 interface BramSVGProps {
   status: 'naked' | 'yes' | 'almost' | 'no';
   mousePos: { x: number; y: number };
+  temperature: number;
 }
 
-const BramSVG: React.FC<BramSVGProps> = ({ status, mousePos }) => {
+const BramSVG: React.FC<BramSVGProps> = ({ status, mousePos, temperature }) => {
   // Eye tracking logic
   const pupilOffset = {
     x: mousePos.x * 5,
@@ -17,6 +18,10 @@ const BramSVG: React.FC<BramSVGProps> = ({ status, mousePos }) => {
   const isAlmost = status === 'almost';
 
   const skinColor = "#FFDBAC"; // Light skin tone for "naked"
+
+  // Subtle lag effect for the sign based on temperature
+  // signOffset moves slightly as temperature changes
+  const signOffset = isNaked ? (temperature - 30) * 2 : 0;
 
   return (
     <svg
@@ -123,8 +128,11 @@ const BramSVG: React.FC<BramSVGProps> = ({ status, mousePos }) => {
           <path d="M165 290 L 165 360" stroke="black" strokeWidth="4" strokeLinecap="round" />
           <path d="M185 290 L 185 360" stroke="black" strokeWidth="4" strokeLinecap="round" />
 
-          {/* Censorship sign */}
-          <g className="animate-bounce">
+          {/* Censorship sign - with lag effect */}
+          <g 
+            className="transition-transform duration-500 ease-out"
+            style={{ transform: `translateY(${signOffset}px)` }}
+          >
             <rect x="100" y="220" width="100" height="40" fill="white" stroke="black" strokeWidth="2" rx="4" />
             <text 
               x="150" 

@@ -172,7 +172,7 @@ export default function Home() {
 
             <div className="flex flex-col md:flex-row items-center justify-center gap-12 md:gap-24 w-full">
               <div className="bg-white rounded-2xl p-8 transform -rotate-1 hover:rotate-0 transition-transform duration-500 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)] border border-black/5">
-                <BramSVG status={status} mousePos={mousePos} />
+                <BramSVG status={status} mousePos={mousePos} temperature={temperature} />
               </div>
 
               <div className={`text-left space-y-8 max-w-xs backdrop-blur-sm p-8 rounded-2xl border transition-all duration-1000 shadow-xl w-full ${status === 'yes' ? 'bg-black/[0.05] border-black/10' : 'bg-white/[0.03] border-white/5'}`}>
