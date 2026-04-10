@@ -78,38 +78,38 @@ export default function Home() {
     if (fetchAttempted.current) return;
     fetchAttempted.current = true;
 
+    const BREDA_COORDS = { latitude: 51.5891, longitude: 4.7744 };
+
+    const fetchWeather = async (lat: number, lon: number) => {
+      try {
+        const response = await fetch(
+          `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`
+        );
+        const data = await response.json();
+        if (data.current_weather) {
+          setTemperature(data.current_weather.temperature);
+        } else {
+          setError(lang === 'en' ? 'Could not fetch weather.' : 'Kon weer niet ophalen.');
+        }
+      } catch {
+        setError(lang === 'en' ? 'Failed to fetch weather.' : 'Weer ophalen mislukt.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
     if (!navigator.geolocation) {
-      setError(lang === 'en' ? 'Geolocation is not supported.' : 'Geolocatie niet ondersteund.');
-      setLoading(false);
+      fetchWeather(BREDA_COORDS.latitude, BREDA_COORDS.longitude);
       return;
     }
 
     navigator.geolocation.getCurrentPosition(
-      async (position) => {
-        const { latitude, longitude } = position.coords;
-        try {
-          const response = await fetch(
-            `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`
-          );
-          const data = await response.json();
-          if (data.current_weather) {
-            setTemperature(data.current_weather.temperature);
-          } else {
-            setError(lang === 'en' ? 'Could not fetch weather.' : 'Kon weer niet ophalen.');
-          }
-        } catch {
-          setError(lang === 'en' ? 'Failed to fetch weather.' : 'Weer ophalen mislukt.');
-        } finally {
-          setLoading(false);
-        }
+      (position) => {
+        fetchWeather(position.coords.latitude, position.coords.longitude);
       },
-      (err) => {
-        if (err.code === err.PERMISSION_DENIED) {
-          setLocationDenied(true);
-        } else {
-          setError(lang === 'en' ? 'Could not retrieve location.' : 'Kon locatie niet ophalen.');
-        }
-        setLoading(false);
+      () => {
+        // Fallback to Breda on any error (denied, timeout, etc.)
+        fetchWeather(BREDA_COORDS.latitude, BREDA_COORDS.longitude);
       },
       { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
     );
