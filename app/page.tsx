@@ -200,7 +200,7 @@ export default function Home() {
       </main>
 
       {/* Manual Shifter moved to a more prominent fixed position */}
-      <div className="fixed bottom-6 right-6 left-6 md:left-auto md:w-48 flex flex-col items-end gap-2 opacity-60 hover:opacity-100 transition-opacity z-[100] group touch-none">
+      <div className="fixed bottom-6 right-6 left-6 md:left-auto md:w-48 flex flex-col items-end gap-2 opacity-60 hover:opacity-100 transition-opacity z-[100] group">
           <div className="text-[10px] font-mono uppercase tracking-[0.2em] opacity-80 group-hover:opacity-100 transition-opacity">{t.sliderLabel}</div>
           <input 
               type="range" 
@@ -208,7 +208,7 @@ export default function Home() {
               max="40" 
               value={temperature} 
               onChange={(e) => setTemperature(Number(e.target.value))}
-              className={`w-full cursor-ew-resize accent-current ${status === 'yes' ? 'bg-black/40' : 'bg-white/40'}`}
+              className="w-full cursor-pointer accent-current bg-transparent"
           />
       </div>
 
@@ -222,16 +222,50 @@ export default function Home() {
         .animate-in { animation: fade-in 1s ease-out forwards; }
         input[type='range'] {
           -webkit-appearance: none;
+          appearance: none;
+          height: 20px; /* Increased to avoid clipping thumb */
+          background: transparent;
+        }
+        input[type='range']::-webkit-slider-runnable-track {
+          width: 100%;
           height: 2px;
+          cursor: pointer;
           border-radius: 2px;
+          background: currentColor;
+          opacity: 0.3;
         }
         input[type='range']::-webkit-slider-thumb {
           -webkit-appearance: none;
-          height: 12px;
-          width: 12px;
+          appearance: none;
+          height: 16px;
+          width: 16px;
           border-radius: 50%;
           background: currentColor;
           cursor: pointer;
+          margin-top: -7px; /* (2px track height / 2) - (16px thumb height / 2) = -7px */
+          border: none;
+          box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        /* Firefox */
+        input[type='range']::-moz-range-track {
+          width: 100%;
+          height: 2px;
+          cursor: pointer;
+          border-radius: 2px;
+          background: currentColor;
+          opacity: 0.3;
+        }
+        input[type='range']::-moz-range-thumb {
+          height: 16px;
+          width: 16px;
+          border-radius: 50%;
+          background: currentColor;
+          cursor: pointer;
+          border: none;
+        }
+        /* Focus styles */
+        input[type='range']:focus {
+          outline: none;
         }
       `}</style>
     </div>
