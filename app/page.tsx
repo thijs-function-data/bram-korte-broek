@@ -108,12 +108,14 @@ export default function Home() {
     );
   }, [lang]);
 
-  const status: 'yes' | 'almost' | 'no' = 
+  const status: 'naked' | 'yes' | 'almost' | 'no' = 
+    temperature >= 30 ? 'naked' :
     temperature >= 15 ? 'yes' : 
     temperature >= 10 ? 'almost' : 
     'no';
 
   const themeClasses = 
+    status === 'naked' ? 'bg-orange-500 text-black' :
     status === 'yes' ? 'bg-amber-300 text-black' : 
     status === 'almost' ? 'bg-zinc-800 text-white' : 
     'bg-zinc-900 text-white';
